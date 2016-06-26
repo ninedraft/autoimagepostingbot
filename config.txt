@@ -1,0 +1,10 @@
+[
+	{
+		"Token":"237406246:AAGxINV6XYQn8BOZ5SGRm3mM46n0oL7PJ7c",
+		"Channel":"@lesbiart",
+		"ChangeDirInterval":70,
+		"Root":"C:/dev/Go/src/autoimage",
+		"Repeat":false,
+		"PostInterval": 1
+	}
+]
