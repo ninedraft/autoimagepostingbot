@@ -2,57 +2,51 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"os"
+	"math/rand"
+	"time"
 )
 
 type ImageSelecter struct {
-	Config BotConfig
-	Name   string
-	Images []os.FileInfo
-	Cursor int
-	Size   int
+	Images  []string
+	Counter int
+	Repeat  bool
 }
 
-func NewSelecter(Config BotConfig, dir os.FileInfo) (*ImageSelecter, error) {
-	files, err := ioutil.ReadDir(Config.Root + "/" + dir.Name())
-	if err != nil {
-		return nil, err
+func NewImageSelecter(img []string, repeat bool) *ImageSelecter {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	n := 0
+	limg := len(img)
+	IS := &ImageSelecter{
+		Images:  make([]string, limg),
+		Counter: 0,
+		Repeat:  repeat,
 	}
-	images := []os.FileInfo{}
-	for _, f := range files {
-		if !f.IsDir() {
-			images = append(images, f)
-		}
+	for i := range img {
+		n = r.Intn(limg)
+		IS.Images[i], IS.Images[n] = img[n], img[i]
 	}
-	if len(images) == 0 {
-		return nil, fmt.Errorf("can't find any image")
-	}
-	ims := &ImageSelecter{
-		Config: Config,
-		Name:   dir.Name(),
-		Images: make([]os.FileInfo, len(images)),
-		Cursor: 0,
-		Size:   len(images),
-	}
-	copy(ims.Images, images)
-	return ims, nil
+	return IS
 }
 
-func (ims *ImageSelecter) Next() (string, bool) {
-	n := Rand.Intn(ims.Size-ims.Cursor) + ims.Cursor
-	next := ims.Images[n]
-	ims.Images[n], ims.Images[ims.Cursor] = ims.Images[ims.Cursor], ims.Images[n]
-	ims.Cursor++
-	ok := true
-	if ims.Cursor == ims.Size {
-		if ims.Config.Repeat {
-			ims.Cursor = 0
+func (is *ImageSelecter) Mesh() {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	limg := len(is.Images)
+	n := 0
+	for i := range is.Images {
+		n = r.Intn(limg)
+		is.Images[i], is.Images[n] = is.Images[n], is.Images[i]
+	}
+}
+
+func (is *ImageSelecter) Next() (string, bool) {
+	if is.Counter == len(is.Images)-1 {
+		if !is.Repeat {
+			return "", false
 		} else {
-			ok = false
+			is.Counter = 0
+			is.Mesh()
 		}
 	}
-	image := ims.Config.Root + "/" + ims.Name + "/" + next.Name()
-	return image, ok
+	is.Counter++
+	return is.Images[is.Counter], true
 }

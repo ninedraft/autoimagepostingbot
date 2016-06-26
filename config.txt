@@ -1,10 +1,6 @@
-[
-	{
-		"Token":"237406246:AAGxINV6XYQn8BOZ5SGRm3mM46n0oL7PJ7c",
-		"Channel":"@lesbiart",
-		"ChangeDirInterval":70,
-		"Root":"C:/dev/Go/src/autoimage",
-		"Repeat":false,
-		"PostInterval": 1
-	}
-]
+- token: "230784269:AAEO9M5g9FnXvRHg1utc_5dzKQiyifKQFLQ"
+  channel: "@autoimage1"
+  changedirinterval: 10
+  root: "D:/Clouds/YandexDisk/Загрузки/Изображения/"
+  repeat: false
+  postingterval: 20
