@@ -20,11 +20,12 @@ var (
 )
 
 type BotConfig struct {
+	Name            string `yaml: name`
 	Token           string `yaml: token`
 	Channel         string `yaml: channel`
 	Root            string `yaml: root`
 	Repeat          bool   `yaml: repeat`
-	PostingInterval uint   `yaml: postingterval`
+	PostingInterval uint   `yaml: postinginterval`
 }
 
 func main() {

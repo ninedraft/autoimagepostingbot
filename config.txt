@@ -1,6 +1,13 @@
 - token: "230784269:AAEO9M5g9FnXvRHg1utc_5dzKQiyifKQFLQ"
+  name: "bot1"
   channel: "@autoimage1"
-  changedirinterval: 10
-  root: "D:/Clouds/YandexDisk/Загрузки/Изображения/"
-  repeat: false
-  postingterval: 20
+  root: "./img"
+  repeat: true
+  postinginterval: 5
+
+- token: "230784269:AAEO9M5g9FnXvRHg1utc_5dzKQiyifKQFLQ"
+  name: "bot2"
+  channel: "@autoimage1"
+  root: "./img"
+  repeat: true
+  postinginterval: 4
